@@ -8,7 +8,6 @@ class Question:
     def check(self,answ):
         tex = self.options[answ-1]
         if tex == self.answer:
-            print("you have the correct answer")
             return 1
         else:
             return 0
@@ -19,13 +18,15 @@ class Quiz:
         random.shuffle(self.questions)
     
     def begin(self):
+        score = 0
         for num in self.questions:
             print(num.text)
             for i in range(len(num.options)):
                 print(f"{i+1} {num.options[i]}")
 
             user = int(input("What is your answer?"))
-            result = num.check(user)
+            score+=num.check(user)
+        print(f"your score is {score}/{len(self.questions)}")
 
     
 
