@@ -1,16 +1,4 @@
 class Product:
-    chocolate = 10
-    banana = 2
-    raspberry = 7
-    maggi = 5
-    orange = 8
-    products =  [chocolate,banana,raspberry,maggi,orange]
-    def check(self,name):
-        for num in self.products:
-            if num == name:
-                return num
-
-class Product2:
     objects = ["chocolate","banana","raspberry","maggi","orange"]
     price = [10,2,7,5,8]
     def find(self,name):
@@ -18,21 +6,37 @@ class Product2:
         return(self.price[num])
 
         
-    
-    
-
-
 class User:
     def __init__(self):
         self.cart = []
-        self.cart2 = []
+        self.cartnames = []
         useradd = input("what product do you want to add")
-        b = Product2()
-        price2 = b.find(useradd)
-        self.cart2.append(price2)
+        b = Product()
+        price = b.find(useradd)
+        self.cart.append(price)
+        self.cartnames.append(useradd)
 
-begin = User()
-print(begin.cart2)
+    
 
-
-
+class Cart:
+    user = User()
+    orders = 0
+    order_record = []
+    view = input("do you want to view your products ").lower()
+    if view == "yes":
+        print(" ".join(user.cartnames))
+        place = input("are you ready to order?").lower()
+        if place == "yes":
+            orders += 1
+            order_name = (f"order {orders}){len(user.cartnames)} items")
+            order_record.append(order_name)
+        else:
+            print("go back to the menu")
+    else:
+        print("go back to menu")
+    
+        
+class Orders:
+    def view_orders(self):
+        x = Cart()
+        print(''.join(x.order_record))
