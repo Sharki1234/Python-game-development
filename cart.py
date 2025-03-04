@@ -9,6 +9,8 @@ class Product:
 class User:
     cart = []
     cartnames = []
+    order_record = []
+    order_pricerecord = []
     def add(self):
         useradd = input("what product do you want to add")
         b = Product()
@@ -17,27 +19,33 @@ class User:
         self.cartnames.append(useradd)
     def view(self):
         orders = 0
-        order_record = []
         view = input("do you want to view your products ").lower()
         if view == "yes":
-            print(" ".join(self.cartnames))
-            place = input("are you ready to order?").lower()
-            if place == "yes":
-                orders += 1
-                order_name = (f"order {orders}){len(user.cartnames)} items")
-                order_record.append(order_name)
-            else:
-                print("go back to the menu")
+            refined = ", ".join(self.cartnames)
+            print(refined)
         else:
             print("go back to menu")
+    def order(self):
+        place = input("are you ready to order?").lower()
+        if place == "yes":
+            orders += 1
+            order_name = (f"order {orders}){len(self.cartnames)} items")
+            order_price = (f"the total price is:£{sum(self.cart)}") 
+            print(f"your order is:{refined} and {order_price}")
+            self.order_pricerecord.append(order_price)
+            self.order_record.append(order_name)
+            cart = []
+            cartnames = []
+        else:
+            print("go back to the menu")
+        
+    def view_orders(self):
+        print(f"{''.join(self.order_record)} with {''.join(self.order_pricerecord)}")
+        print()
 
     
     
-        
-class Orders:
-    def view_orders(self):
-        x = Cart()
-        print(''.join(x.order_record))
+
 
 while True:
     menu = input("what do you wnat to do?").lower()
@@ -46,5 +54,7 @@ while True:
         action.add()
     elif menu == "check cart":
         action.view()
-    elif menu == "orders":
-        action = Orders()
+    elif menu == "view orders":
+        action.view_orders()
+    elif menu == "order":
+        action.order()
