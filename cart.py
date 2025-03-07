@@ -12,13 +12,22 @@ class User:
     order_record = []
     order_pricerecord = []
     def add(self):
-        useradd = input("what product do you want to add")
-        b = Product()
-        price = b.find(useradd)
-        self.cart.append(price)
-        self.cartnames.append(useradd)
+        x =0
+        while x ==0:
+            useradd = input("what product do you want to add")
+            b = Product()
+            price = b.find(useradd)
+            self.cart.append(price)
+            self.cartnames.append(useradd)
+            more = input("do you want to add any more products?")
+            if more == "yes":
+                x = 0
+            else:
+                x = 1
+       
+
     def view(self):
-        orders = 0
+        
         view = input("do you want to view your products ").lower()
         if view == "yes":
             refined = ", ".join(self.cartnames)
@@ -26,6 +35,7 @@ class User:
         else:
             print("go back to menu")
     def order(self):
+        orders = 0
         place = input("are you ready to order?").lower()
         if place == "yes":
             orders += 1
