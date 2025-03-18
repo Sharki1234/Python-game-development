@@ -27,7 +27,7 @@ def change():
 
 def view():
     view = input("what student do you want to view?")
-    print(f"{view}":")
+    print(f"{view}:")
     print(students[view]["age"])
     print(students[view]["class"])
 

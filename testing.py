@@ -17,7 +17,7 @@ while True:
             classroom[name_edit] = age_edit
     elif choice == 3:
         delete = input("what do you want to delete?")
-        classroom.pop(delete)
-    
+        #classroom.pop(delete)
+        del classroom[delete]
     print(classroom)
         
