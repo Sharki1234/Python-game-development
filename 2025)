@@ -1,16 +1,19 @@
 students = {
-    "Sara" : {
+    "sara" : {
         "age":13,
         "class":"8B",
         
+        
     },
-    "Addeline":{
+    "addeline":{
          "age":15,
          "class":"9F",
+         
     },
-    "Marilyn":{
+    "marilyn":{
          "age":13,
          "class":"8O",
+         
     }
 }
 
@@ -31,4 +34,10 @@ def view():
     print(students[view]["age"])
     print(students[view]["class"])
 
-print(students)
+menu = 0
+while menu != "exit":
+    menu = input("what do you wnat to do?")
+    if menu == "view":
+        view()
+    elif menu == "change":
+        change()
