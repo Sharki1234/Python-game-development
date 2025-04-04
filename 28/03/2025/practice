@@ -1,0 +1,17 @@
+import pgzrun
+WIDTH = 1000
+HEIGHT = 1000
+board = []
+x = Actor ("close")
+o = Actor("letter-o")
+line = Actor("remove")
+across = Actor("line")
+board = []
+def draw():
+    for i in range(3):
+        first = line.draw()
+        second = across.draw()
+        for i in range(3):
+            first.join(board[i])
+            second.draw()
+pgzrun.go()
