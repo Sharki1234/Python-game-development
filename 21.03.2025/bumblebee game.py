@@ -1,6 +1,8 @@
 import pgzrun
 import random
-
+from pgzero.builtins import *
+import pgzero.screen
+screen:pgzero.screen.Screen
 WIDTH = 500
 HEIGHT = 500
 score = 0
