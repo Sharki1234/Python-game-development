@@ -1,0 +1,30 @@
+import random
+list1 = []
+list2 = []
+list3 = []
+ 
+
+for i in range(3):
+    row1 = []
+    for i in range(3):
+        
+        row1.append(random.randint(0,10))
+    list1.append(row1)
+
+for i in range(3):
+    row = []
+    for i in range(3):
+        row.append(random.randint(0,10))
+    list2.append(row)
+
+for w in range(3):
+    row3 = []
+    for x in range(3):
+         row_add = list1[w][x]+list2[w][x]
+         row3.append(row_add)
+    list3.append(row3)
+         
+
+print(list1)
+print(list2)
+print(list3)
