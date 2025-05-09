@@ -2,42 +2,54 @@ import pgzrun
 import random
 WIDTH = 500
 HEIGHT = 400
-blue = Actor("blue-star")
 stars = ["green-star","orange-star","red-star","purple-star"]
 actors = []
 selected = []
-gap = WIDTH/(len(stars)+2)
-num = 3
+animation = []
+num = 1
+game_over = False
+
 def make_actors():
-    actors.append(blue)
-    for i in range(len(stars)):
-        actors.append(Actor(stars[i]))
-    random.shuffle(actors)    
-     
+    for i in range(num):
+        selected.append(random.choice(stars))
+    selected.append("blue-star")
+    random.shuffle(selected)   
+    for s in selected:
+        actors.append(Actor(s))
+    gap = WIDTH/(num+2) 
     for i in range(len(actors)):
          actors[i].x = gap*(i+1)
-    actors.pop(4)
     for m in actors:
-        animate(m,duration = 10,y = HEIGHT)
+        y = animate(m,duration = 10,y = HEIGHT)
+        animation.append(y)
     
-    animate(blue,duration = 10,y = HEIGHT)
-
-def select_actors():
-    for i in range(num+1):
-        selected.append(random.choice(actors))
-    selected.append(blue)
-    for x in range(len(selected)):  
-        selected[x].x = (((WIDTH/len(selected))+2)*(x+1))
-    
-
 make_actors()
-select_actors()
 
 def draw():
     screen.blit("space",(0,0))
     #blue.draw()
-    for item in selected:
+    for item in actors:
         item.draw()
+    if game_over:
+        screen.draw.text("GAME OVER",fontsize = 100,center = (250,100),color = "white")
+
+def on_mouse_down(pos):
+    global actors,selected,num,animation,game_over
+    for i in range(num+1):
+        if actors[i].collidepoint(pos):
+            if  selected[i] == "blue-star":
+                num+=1
+                actors = []
+                selected = []
+                animation = []
+                make_actors()
+            else:
+                for x in range(num+1):
+                    if animation[x].running:
+                        animation[x].stop()
+                game_over = True
+
+
 
 pgzrun.go()
 

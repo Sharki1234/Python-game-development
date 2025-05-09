@@ -3,7 +3,6 @@ import random
 WIDTH = 700
 HEIGHT = 300
 level = 1
-gap = WIDTH/(level+2)
 items = ["bottleimg","chipsimg","batteryimg","bagimg"]
 selected_items = []
 actors = []
@@ -44,6 +43,7 @@ def game_over():
 
 def on_mouse_down(pos):
     global level,selected_items,actors,animation,over
+
     for i in range(level+1):
         if actors[i].collidepoint(pos):
             if selected_items[i] == "paperimg":
