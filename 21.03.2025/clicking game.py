@@ -22,13 +22,6 @@ def make_boosts():
         actors[i].y = gap*(i+1)
         actors[i].x = (HEIGHT/10)*8
 
-# def boosts():
-#     if score >= 10:
-#         return 1
-#     if score >=100:
-#         return 2
-#     if score >= 1000:
-#         return 3
 
 make_boosts()
 #boosts()
