@@ -1,0 +1,49 @@
+import pgzrun
+import random
+from time import time
+WIDTH = 500
+HEIGHT = 400
+prev = 0
+timesup = False
+
+sat_list = []
+lines = []
+message = ""
+start_time = 0
+for i in range(8):
+    sat = Actor("sat")
+    sat_list.append(sat)
+    sat_list[i].pos = (random.randint(20,WIDTH-20),random.randint(20,HEIGHT-20))
+start_time = time()
+def draw():
+    screen.blit("space",(0,0))
+    for i in range(len(sat_list)):
+        sat_list[i].draw()
+        screen.draw.text(str(i+1),(sat_list[i].x,sat_list[i].y+15))
+    for n in range(len(lines)):
+        screen.draw.line(lines[n][0],lines[n][1],(255,255,255))
+    if timesup:
+        screen.draw.text("GAME OVER",(250,250),fontsize = 50)
+    screen.draw.text(str(round(time()-start_time,1)),(10,10),fontsize = 20)
+    
+
+def on_mouse_down(pos):
+    global prev,lines
+    if prev<7 and sat_list:
+        
+        if sat_list[prev+1].collidepoint(pos):
+            lines.append((sat_list[prev].pos,sat_list[prev+1].pos))
+            prev+=1
+        else:
+            lines = []
+            prev = 0
+def game_over():
+    global lines,sat_list,timesup
+    lines = []
+    sat_list = []
+    timesup = True
+
+clock.schedule(game_over,10)
+
+
+pgzrun.go()

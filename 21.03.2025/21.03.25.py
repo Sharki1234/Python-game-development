@@ -1,4 +1,7 @@
 import pgzrun
+from pgzero.builtins import *
+import pgzero.screen
+screen : pgzero.screen.Screen
 import random
 
 WIDTH = 500
@@ -10,6 +13,7 @@ message = ""
 def draw():
     screen.clear()
     screen.fill(color = (128,0,0))
+    #screen.blit-image background(nameofimage,(0,0))
     sprite.draw()
     sprite2.draw()
     screen.draw.text(message,center = (20,20),fontsize = 20)

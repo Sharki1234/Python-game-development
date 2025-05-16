@@ -58,8 +58,6 @@ for i in range(5):
     print(''.join(board6[i]))
 print(" ")
 #pattern7
-board7 = []
-row7 = []
 f = []
 k = ["*"]
 g = []
