@@ -26,6 +26,13 @@ def draw():
 
     # message = (f"your score is: {score}")
     # screen.draw.text(message,center = (50,20),fontsize = 20)
+    if coll() == True:
+        part = Actor("red-star")
+        x = snake.x
+        y = snake.y
+        part.x = x
+        part.y = y
+        part.draw()
     for b in body:
         b.draw()
    
@@ -33,39 +40,46 @@ def draw():
 def stop(body):
     if snake.x == WIDTH or snake.x == 0 or snake.y == HEIGHT or snake.y == 0:
         for i in range(len(body)):
-            body.x = WIDTH*2
-            body.y = HEIGHT*2
-            body = []
+            body[i].x = WIDTH*2
+            body.y[i] = HEIGHT*2
+            body[i] = []
     return False
+
+def coll():
+    global food
+    if snake.colliderect(food):
+        
+            
+        return True
+        
 
 def update():
     global score
-    if keyboard.left:
+    if keyboard.right:
         ani = animate(snake,duration = 10,x = WIDTH)
-        for i in 
-        anib = animate(body,duration = 10,x = WIDTH)
-    elif keyboard.right:
-        ani = animate(snake,duration = 10,x = WIDTH)
+        for i in body:
+            ani = animate(i,duration = 10,x = WIDTH)
+        
+    elif keyboard.left:
+        ani = animate(snake,duration = 10,x = WIDTH-WIDTH)
+        for i in body:
+            ani = animate(i,duration = 10,x = WIDTH - WIDTH)
+        
     elif keyboard.up:
-        ani = animate(snake,duration = 10,y = HEIGHT)
+        ani = animate(snake,duration = 10,y = HEIGHT - HEIGHT)
+        for i in body:
+            ani = animate(i,duration = 10,y = HEIGHT-HEIGHT)
+        
     elif keyboard.down:
         ani = animate(snake,duration = 10,y = HEIGHT)
+        for i in body:
+            ani = animate(i,duration = 10,y = HEIGHT)
+        
 
     gameover = stop(body)
     if not gameover:
-        print("hi")
-    if snake.colliderect(food):
-        print("hello")
-        
-        score+=1
-            
-        foodpos()
-        part = Actor("red-star")
-        x = snake.x
-        y = snake.y
-        part.x = x
-        part.y = y
-        body.append(part)
+        x = 0
+    
             
             
 
