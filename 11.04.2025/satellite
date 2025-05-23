@@ -10,6 +10,7 @@ sat_list = []
 lines = []
 message = ""
 start_time = 0
+current_time = 0
 for i in range(8):
     sat = Actor("sat")
     sat_list.append(sat)
@@ -24,7 +25,10 @@ def draw():
         screen.draw.line(lines[n][0],lines[n][1],(255,255,255))
     if timesup:
         screen.draw.text("GAME OVER",(250,250),fontsize = 50)
-    screen.draw.text(str(round(time()-start_time,1)),(10,10),fontsize = 20)
+        current_time = 0
+    if not timesup and prev+1<8:
+        current_time = time()-start_time
+    screen.draw.text(str(round(current_time,1)),(10,10),fontsize = 20)
     
 
 def on_mouse_down(pos):

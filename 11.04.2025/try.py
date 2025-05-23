@@ -32,7 +32,7 @@ def draw():
         y = snake.y
         part.x = x
         part.y = y
-        part.draw()
+        body.append(part)
     for b in body:
         b.draw()
    
