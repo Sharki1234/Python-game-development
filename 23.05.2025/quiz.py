@@ -25,7 +25,7 @@ def get_questions():
         dict = {
             "question":question,
             "options":options,
-            "answer":options[answer-1]
+            "answer":answer-1
         }
         full.append(dict)
     random.shuffle(full)
@@ -65,19 +65,21 @@ def draw():
     recs.append(rect3)
     recs.append(rect4)
     screen.draw.text((full[level]["question"]),(gap+10,gap+(y/2)),fontsize = 20)#putting question into teh box
-    screen.draw.text(full[level]["options"][0],((gap+10),n),fontsize=20)#printing options
+    screen.draw.text(full[level]["options"][0],((gap+10),n),fontsize=20)
+    screen.draw.text(full[level]["options"][1],(WIDTH-p,n),fontsize=20)
+    screen.draw.text(full[level]["options"][2],(WIDTH-p,n+(y)+gap),fontsize=20)
+    screen.draw.text(full[level]["options"][3],(p,n+(y)+gap),fontsize=20)
+    #printing options
 
-def on_mouse_click(pos):
-    global level
-    for i in range(recs):
+def on_mouse_down(pos):
+    global level,full
+    for i in range(len(recs)):
         if recs[i].collidepoint(pos):
-            print(i)
-            print(pos)
-            if i == full[level]["answer"]:
+            if i == full[level]["answer"] and level<=len(full):
                 level+=1#if the index of the rectangle that you have clicked is equal to teh index of the answer 
                 #you will move to teh next level
-            else:
-                print("hello")
+            if level>len(full):
+                full = []
         
 
 pgzrun.go()

@@ -1,0 +1,72 @@
+import pgzrun
+import random
+WIDTH = 500
+HEIGHT = 410
+x = 0
+collu = 4
+rows = 4
+recs = []
+images = ["1","1","2","2","3","3","4","4","5","5"]
+characters = []
+x = WIDTH/4
+y = HEIGHT/4
+prev = 0
+prevs = []
+previ = []
+def initiationn():
+    global images
+    random.shuffle(images)
+    for i in range(4):
+        rect2 = Rect((0,0),(x,y))
+        rect2.center = (x/2+(x*i),y/2)
+        recs.append(rect2)
+    for n in range(4):
+        rect2 = Rect((0,0),(x,y))
+        rect2.center = (x/2,y/2+(y*n))
+        recs.append(rect2)
+    for l in range(1,4):
+        rect2 = Rect((0,0),(x,y))
+        rect2.center = (x/2+(x*l),y/2+(y*1))
+        recs.append(rect2)
+    for l in range(1,4):
+        rect2 = Rect((0,0),(x,y))
+        rect2.center = (x/2+(x*l),y/2+(y*2))
+        recs.append(rect2)
+
+initiationn()
+def draw():
+    global x
+    screen.fill(color = (8,84,47))  
+    for r in recs:
+        screen.draw.filled_rect(r,(161,249,148))
+    for i in range(len(recs)):
+        if x == i:
+            screen.draw.text(images[i],(recs[i].x,recs[i].y),fontsize= 30,color = "black" )
+    for c in characters:
+        screen.draw.text(images[c],(recs[c].x,recs[c].y),fontsize= 30,color = "black" )
+
+def on_mouse_down(pos):
+    global x,prev,prevs,previ
+    for i in range(len(recs)):
+        if recs[i].collidepoint(pos):
+            x = i
+            prevs.append(images[i])
+            previ.append(i)
+            if images[i] == prevs[len(prevs)-2]and  len(prevs)>2:
+                characters.append(previ[len(prevs)-2])
+                characters.append(previ[len(prevs)-1])
+            
+
+            
+
+
+#def check():
+
+
+
+
+        
+
+
+
+pgzrun.go()
