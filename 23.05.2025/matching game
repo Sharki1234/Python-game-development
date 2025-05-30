@@ -3,8 +3,6 @@ import random
 WIDTH = 500
 HEIGHT = 410
 x = 0
-collu = 4
-rows = 4
 recs = []
 images = ["1","1","2","2","3","3","4","4","5","5"]
 characters = []
@@ -13,27 +11,34 @@ y = HEIGHT/3
 prev = 0
 prevs = []
 previ = []
-def initiationn():
-    global images
-    random.shuffle(images)
-    for i in range(4):
+random.shuffle(images)
+for i in range(3):
+    for j in range(3):
         rect2 = Rect((0,0),(x,y))
-        rect2.center = (x/2+(x*i),y/2)
+        rect2.center = (x/2+(x*i),y/2+(y*j))
         recs.append(rect2)
-    for n in range(4):
-        rect2 = Rect((0,0),(x,y))
-        rect2.center = (x/2,y/2+(y*n))
-        recs.append(rect2)
-    for l in range(1,4):
-        rect2 = Rect((0,0),(x,y))
-        rect2.center = (x/2+(x*l),y/2+(y*1))
-        recs.append(rect2)
-    for l in range(1,4):
-        rect2 = Rect((0,0),(x,y))
-        rect2.center = (x/2+(x*l),y/2+(y*2))
-        recs.append(rect2)
+# def initiationn():
+#     global images
+#     random.shuffle(images)
+#     rect = Rect((0,0),(x,y))
+#     for i in range(3):
+#         rect2 = Rect((0,0),(x,y))
+#         rect2.center = (x/2+(x*i),y/2)
+#         recs.append(rect2)
+#     # for n in range(3):
+#     #     rect2 = Rect((0,0),(x,y))
+#     #     rect2.center = (x/2,y/2+(y*n))
+#     #     recs.append(rect2)
+#     for l in range(3):
+#         rect2 = Rect((0,0),(x,y))
+#         rect2.center = (x/2+(x*l),y/2+(y*1))
+#         recs.append(rect2)
+#     for l in range(3):
+#         rect2 = Rect((0,0),(x,y))
+#         rect2.center = (x/2+(x*l),y/2+(y*2))
+#         recs.append(rect2)
 
-initiationn()
+#initiationn()
 def draw():
     global x
     screen.fill(color = (8,84,47))  
