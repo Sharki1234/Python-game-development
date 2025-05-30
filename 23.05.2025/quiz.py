@@ -1,11 +1,12 @@
 import pgzrun
 import random
 WIDTH = 500
-HEIGHT = 410
+HEIGHT = 500
 gap = 10
 full = [] 
 recs = []
 level = 0
+time_left = 10
 
 def get_questions():
     file = open("23.05.2025\practice.txt","r")
@@ -30,45 +31,51 @@ def get_questions():
         full.append(dict)
     random.shuffle(full)
 
+
     print(full)
     file.close()
 get_questions()
-
+x = (WIDTH - (gap*3))/2
+y = (HEIGHT - (gap*4))/3
+p = gap + (x/2)
+n = (y+(gap*2))+(y/2)
+over = False
 def draw():
-    x = (WIDTH - (gap*3))/2
-    y = (HEIGHT - (gap*4))/3
-    p = gap + (x/2)
-    n = (y+(gap*2))+(y/2)
-    screen.fill(color = (150,238,137))  
-    rect = Rect((0,0),(x,y))
-    rect.center = (p,n)
-    screen.draw.filled_rect(rect,(8,84,47))#drawing teh rectangles
+    if over:
+        game_over()
+        screen.fill(color = (0,0,0))
+        screen.draw.text("game over",(250,250),fontsize = 30)
+    else:
+        screen.fill(color = (150,238,137))  
+        rect = Rect((0,0),(x,y))
+        rect.center = (p,n)
+        screen.draw.filled_rect(rect,(8,84,47))#drawing teh rectangles
 
-    rect2 = Rect((0,0),(x,y))
-    rect2.center = (WIDTH-p,n)
-    screen.draw.filled_rect(rect2,(8,84,47))
+        rect2 = Rect((0,0),(x,y))
+        rect2.center = (WIDTH-p,n)
+        screen.draw.filled_rect(rect2,(8,84,47))
 
-    rect3 = Rect((0,0),(x,y))
-    rect3.center =(WIDTH-p,n+(y)+gap)
-    screen.draw.filled_rect(rect3,(8,84,47))
+        rect3 = Rect((0,0),(x,y))
+        rect3.center =(WIDTH-p,n+(y)+gap)
+        screen.draw.filled_rect(rect3,(8,84,47))
 
-    rect4 = Rect((0,0),(x,y))
-    rect4.center = (p,n+(y)+gap)
-    screen.draw.filled_rect(rect4,(8,84,47))
+        rect4 = Rect((0,0),(x,y))
+        rect4.center = (p,n+(y)+gap)
+        screen.draw.filled_rect(rect4,(8,84,47))
 
-    qbox = Rect((0,0),((2*x)+gap,y))
-    qbox.center = ((gap*1.5)+x,gap+(y/2))
-    screen.draw.filled_rect(qbox,(1,45,33))
+        qbox = Rect((0,0),((2*x)+gap,y))
+        qbox.center = ((gap*1.5)+x,gap+(y/2))
+        screen.draw.filled_rect(qbox,(1,45,33))
 
-    recs.append(rect)#adding to list
-    recs.append(rect2)
-    recs.append(rect3)
-    recs.append(rect4)
-    screen.draw.text((full[level]["question"]),(gap+10,gap+(y/2)),fontsize = 20)#putting question into teh box
-    screen.draw.text(full[level]["options"][0],((gap+10),n),fontsize=20)
-    screen.draw.text(full[level]["options"][1],(WIDTH-p,n),fontsize=20)
-    screen.draw.text(full[level]["options"][2],(WIDTH-p,n+(y)+gap),fontsize=20)
-    screen.draw.text(full[level]["options"][3],(p,n+(y)+gap),fontsize=20)
+        recs.append(rect)#adding to list
+        recs.append(rect2)
+        recs.append(rect3)
+        recs.append(rect4)
+        screen.draw.text((full[level]["question"]),(gap+10,gap+(y/2)),fontsize = 20)#putting question into teh box
+        screen.draw.text(full[level]["options"][0],((gap+10),n),fontsize=20)
+        screen.draw.text(full[level]["options"][1],(WIDTH-p,n),fontsize=20)
+        screen.draw.text(full[level]["options"][2],(WIDTH-p,n+(y)+gap),fontsize=20)
+        screen.draw.text(full[level]["options"][3],(p,n+(y)+gap),fontsize=20)
     #printing options
 
 def on_mouse_down(pos):
@@ -80,6 +87,18 @@ def on_mouse_down(pos):
                 #you will move to teh next level
             if level>len(full):
                 full = []
+def game_over():
+    global full
+    full = []
+def timesup():
+    global time_left,over
+    if time_left>0:
+        time_left-=1
+        print(time_left)
+    else:
+        game_over()
+        over = True
+clock.schedule_interval(timesup,1)
         
 
 pgzrun.go()

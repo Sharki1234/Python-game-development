@@ -8,8 +8,8 @@ rows = 4
 recs = []
 images = ["1","1","2","2","3","3","4","4","5","5"]
 characters = []
-x = WIDTH/4
-y = HEIGHT/4
+x = WIDTH/3
+y = HEIGHT/3
 prev = 0
 prevs = []
 previ = []
@@ -48,7 +48,7 @@ def draw():
 def on_mouse_down(pos):
     global x,prev,prevs,previ
     for i in range(len(recs)):
-        if recs[i].collidepoint(pos):
+        if recs[i].collidepoint(pos) and i<=10:
             x = i
             prevs.append(images[i])
             previ.append(i)
@@ -56,17 +56,4 @@ def on_mouse_down(pos):
                 characters.append(previ[len(prevs)-2])
                 characters.append(previ[len(prevs)-1])
             
-
-            
-
-
-#def check():
-
-
-
-
-        
-
-
-
 pgzrun.go()
