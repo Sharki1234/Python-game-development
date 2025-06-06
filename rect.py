@@ -15,7 +15,7 @@ def draw():
         # rect = Rect((0,0),(x,y))
         # rect.center = 250,250
         # screen.draw.rect(rect,(255,p,z))
-        screen.draw.circle((250,250),x,(255,p,z))
+        screen.draw.circle((250,0),x,(255,p,z))
         z+=10
         p-=10
 
