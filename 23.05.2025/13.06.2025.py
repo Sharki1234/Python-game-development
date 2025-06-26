@@ -34,9 +34,12 @@ def draw():
 def check(move_down):
     global over  
     if len(bugs) == 0:
-        over = True   
+        over = True 
     for row in bugs:
-        for bug in row[::]:
+        if row == 0 :
+            bugs.remove(row)  
+    for row in bugs:
+        for bug in row:
             bug.x+=direction*2
             if move_down:
                 bug.y+=50
