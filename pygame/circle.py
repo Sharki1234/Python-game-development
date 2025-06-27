@@ -18,7 +18,7 @@ class Circle():
         pygame.draw.circle(self.scrn,self.colour,self.center,self.radius)
 
 
-
+radius = 40
 while start:
     for event in pygame.event.get():
         
@@ -26,8 +26,8 @@ while start:
             start = False
             break
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            tiny_circle = Circle((0,0,255),(250,250),40)
+            tiny_circle = Circle((0,0,255),(250,250),radius)
             tiny_circle.draw()
         elif event.type == pygame.MOUSEBUTTONUP:
-            tiny_circle.grow()
+            radius+=20
         pygame.display.update()
