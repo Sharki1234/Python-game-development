@@ -1,5 +1,6 @@
 import pygame
 import random
+import time
 pygame.init()
 WIDTH = 500
 HEIGHT = 500
@@ -11,11 +12,12 @@ x = 0
 y = 0
 fx = random.randint(0,WIDTH)
 fy = random.randint(0,HEIGHT)
+bwidth,bheight = bee.get_width(),bee.get_height()
+fwidth,fheight = flower.get_width(),flower.get_height()
 moving = True
 move = [0,10]
 while True:
-    screen.blit(bee,(x,y))
-    screen.blit(flower,(fx,fy))
+    
     for event in pygame.event.get():
         
         if event.type == pygame.QUIT:
@@ -40,23 +42,30 @@ while True:
 
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_RIGHT:
-                moving = True
+                move[0] = 0
+                move[1] = 0
             elif event.key == pygame.K_LEFT:
-                moving = True
+                move[0] = 0
+                move[1] = 0
             elif event.key == pygame.K_UP:
-                moving = True
+                move[0] = 0
+                move[1] = 0
             elif event.key == pygame.K_DOWN:
-                moving = True
+                move[0] = 0
+                move[1] = 0
 
-        if fx - x<10 and fx-x>-10:
-            fx = random.randint(0,WIDTH) 
-        elif fy - y<10 and fy-y>-10:
-            fy = random.randint(0,WIDTH)   
+           
     
-        if not moving:
-            x+=move[0]
-            y+=move[1]
-        screen.fill((122,255,122))
-        screen.blit(bee,(x,y))
-        screen.blit(flower,(fx,fy))
-        pygame.display.update()
+    if not moving:
+        x+=move[0]
+        y+=move[1]
+    screen.fill((122,255,122))
+    brect = pygame.Rect((x,y),(bwidth,bheight))
+    frect = pygame.Rect((fx,fy),(fwidth,fheight))
+    if brect.colliderect(frect):
+        fx = random.randint(20,WIDTH-20)
+        fy = random.randint(20,HEIGHT-20)
+    screen.blit(bee,(x,y))
+    screen.blit(flower,(fx,fy))
+    time.sleep(0.05)
+    pygame.display.update()
