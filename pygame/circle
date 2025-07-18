@@ -1,0 +1,22 @@
+import pygame
+pygame.init()
+WIDTH = 500
+HEIGHT = 500
+x = 250
+y = 250
+direction = [5,5]
+screen = pygame.display.set_mode((WIDTH,HEIGHT))
+rect = pygame.Rect((x,y),(20,20))
+go = True
+while True:
+    pygame.draw.rect(screen,(255,125,125),rect)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+    if x!= 500 or x!=0 or y!=500 or y!=0:    
+        x+=direction[0]
+        y+=direction[1]
+    
+    
+
+    pygame.display.update()
