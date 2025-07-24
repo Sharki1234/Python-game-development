@@ -5,25 +5,34 @@ screen = pygame.display.set_mode([500,500])
 #move = 0
 class Paddle:
 
-    def __init__(self,x,y,width,height,move):
+    def __init__(self,x,y,width,height,move,movey):
         self.x = x
         self.y = y
         self.width = width
         self.height = height
         self.move = move
-        self.lives = 1
+        self.movey =movey
+        self.lives = 3
     def create_rect(self):
         rect = pygame.Rect((self.x,self.y),(self.width,self.height))
         return rect
     def draw(self):
         rect = self.create_rect()
         pygame.draw.rect(screen,(255,125,125),rect)
-    def change_move(self,change):
+    def change_move(self,change,changey):
         self.move=change
+        self.movey = changey
     def movement(self):
         self.x += self.move
+        self.y+=self.movey
+    def invisa_rect(self,a):
+        invisa_rect = pygame.Rect((self.x+a,self.y+a),(self.width+20,self.height+20))
+       
+        return invisa_rect
     def change_lives(self):
+        # if self.lives>=0:
         self.lives-=1
+    
     
 
 class Ball:
@@ -35,10 +44,11 @@ class Ball:
         self.change_y = -5
     def draw(self):
         pygame.draw.circle(screen,center=(self.x,self.y),radius = self.radius,color = (125,125,255))
-    def collide(self,paddle):
+    def collide(self,paddle,mx,my):
         rect = pygame.Rect(self.x-self.radius,self.y-self.radius,self.radius*2,self.radius*2)
         if paddle.colliderect(rect):
-            self.change_y*=-1
+            self.change_y*=my
+            self.change_x*=mx
     def move(self):
         self.x+=self.change_x
         self.y += self.change_y
@@ -53,7 +63,8 @@ class Ball:
         
         
 
-r = Paddle(250,400,100,30,0)
+r = Paddle(250,450,100,30,0,0)
+r2 = Paddle(450,250,30,100,0,0)
 c = Ball(10,20,20)
 while True:
     
@@ -63,25 +74,40 @@ while True:
             pygame.quit()
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                r.change_move(-5)
+                r.change_move(-5,0)
             if event.key == pygame.K_RIGHT:
-                r.change_move(5)
+                r.change_move(5,0)
+            if event.key == pygame.K_UP:
+                r2.change_move(0,-5)
+            if event.key == pygame.K_DOWN:
+                r2.change_move(0,5)
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
-                r.change_move(0)
+                r.change_move(0,0)
             if event.key == pygame.K_RIGHT:
-                r.change_move(0)
+                r.change_move(0,0)
+            if event.key == pygame.K_UP:
+                r2.change_move(0,0)
+            if event.key == pygame.K_DOWN:
+                r2.change_move(0,0)
+        
     screen.fill((0,0,0))
     r.draw()
+    r2.draw()
     if c.move():
-        r.change_lives()
-        print(r.lives)
-        c.x = 20
-        c.y = 20
+        if r.lives!= 0:
+            r.change_lives()
+            print(r.lives)
+            c.x = 20
+            c.y = 20
+        if r.lives == 0:
+            screen.fill((0,0,0))
 
-    c.collide(r.create_rect())
+    c.collide(r.create_rect(),-1,1)
+    c.collide(r2.invisa_rect(-10),-1,1)
     c.draw()
     r.movement()
+    r2.movement()
 
 
     time.sleep(0.05)
