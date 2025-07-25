@@ -16,7 +16,7 @@ bwidth,bheight = bee.get_width(),bee.get_height()
 fwidth,fheight = flower.get_width(),flower.get_height()
 moving = True
 move = [0,10]
-pygame.transform.rotate(bee,90.0)
+
 while True:
     
     for event in pygame.event.get():

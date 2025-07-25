@@ -93,7 +93,7 @@ while True:
         
     screen.fill((0,0,0))
     r.draw()
-    r2.draw()
+    #r2.draw()
     if c.move():
         if r.lives!= 0:
             r.change_lives()

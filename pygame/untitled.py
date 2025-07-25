@@ -3,6 +3,7 @@ import time
 pygame.init()
 screen = pygame.display.set_mode([500,500])
 move = 0
+direction = [5,5]
 class Paddle:
 
     def __init__(self,x,y,width,height):
@@ -18,10 +19,11 @@ class Paddle:
         pygame.draw.rect(screen,(255,125,125),rect)
     def movement(self):
         self.x += move
+   
+
 # rect = pygame.Rect((250,400),(100,30))
 r = Paddle(250,400,100,30)
 while True:
-    
     #pygame.draw.rect(screen,(255,125,125),rect)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
