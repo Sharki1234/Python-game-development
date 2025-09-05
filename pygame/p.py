@@ -44,11 +44,11 @@ class Ball:
         self.change_y = -5
     def draw(self):
         pygame.draw.circle(screen,center=(self.x,self.y),radius = self.radius,color = (125,125,255))
-    def collide(self,paddle,mx,my):
+    def collide(self,paddle):
         rect = pygame.Rect(self.x-self.radius,self.y-self.radius,self.radius*2,self.radius*2)
         if paddle.colliderect(rect):
-            self.change_y*=my
-            self.change_x*=mx
+            self.change_y*=-1
+            #self.change_x*=mx
     def move(self):
         self.x+=self.change_x
         self.y += self.change_y
@@ -103,7 +103,7 @@ while True:
         if r.lives == 0:
             screen.fill((0,0,0))
 
-    c.collide(r.invisa_rect(10),-1,1)
+    c.collide(r.invisa_rect(10))
     #c.collide(r2.invisa_rect(-10),-1,1)
     c.draw()
     r.movement()

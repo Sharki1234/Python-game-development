@@ -1,0 +1,58 @@
+import pygame
+pygame.init()
+screen = pygame.display.set_mode([500,500])
+bg = pygame.image.load("pygame\Rocket Simulation\space.png")
+class Rocket:
+    def __init__(self,x,y,images,angle):
+        self.x = x
+        self.y = y
+        self.images = images
+        self.angle = angle
+        self.move = 0
+    def create_rocket(self):
+        self.rocket = pygame.image.load(self.images)
+        self.rocket = pygame.transform.scale(self.rocket,(50,50))
+        self.rocket = pygame.transform.rotate(self.rocket,self.angle)
+        return self.rocket
+    def draw(self):
+        screen.blit(self.create_rocket(),(self.x,self.y))
+    def movement(self):
+        self.y+= self.move
+    def up(self):
+        self.move = -5
+    def down(self):
+        self.move = 5
+    def stop(self):
+        self.move = 0
+
+rocket1 = Rocket(50,100,"pygame\Rocket Simulation\spaceship_red.png",90)
+rocket2 = Rocket(400,100,"pygame\Rocket Simulation\spaceship_yellow.png",270)
+
+while True:
+    screen.blit(bg,(0,0))
+    rocket1.draw()
+    rocket2.draw()
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                rocket1.up()
+            elif event.key == pygame.K_RIGHT:
+                rocket1.down()
+            elif event.key == pygame.K_UP:
+                rocket2.up()
+            elif event.key == pygame.K_DOWN:
+                rocket2.down()
+        elif event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT:
+                rocket1.stop()
+            elif event.key == pygame.K_RIGHT:
+                rocket1.stop()
+            elif event.key == pygame.K_UP:
+                rocket2.stop()
+            elif event.key == pygame.K_DOWN:
+                rocket2.stop()
+    rocket1.movement()
+    rocket2.movement()
+    pygame.display.update()
