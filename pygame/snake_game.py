@@ -120,5 +120,5 @@ while True:
     #print(len(snake.rects))
     
    
-    time.sleep(0.2)
+    time.sleep(0.15)
     pygame.display.update()

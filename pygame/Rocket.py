@@ -1,7 +1,7 @@
 import pygame
 import time
 pygame.init()
-screen = pygame.display.set_mode([1000,1000])
+screen = pygame.display.set_mode([800,800])
 rocket = pygame.image.load("pygame\Rocket Simulation\character.png")
 start = True
 x = 250

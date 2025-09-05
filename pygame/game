@@ -1,0 +1,13 @@
+import pygame
+pygame.init()
+CELL_SIZE = 20
+CELL_HEIGHT = 20
+CELL_WIDTH = 20
+screen = pygame.display.set_mode((30*CELL_WIDTH,30*CELL_HEIGHT))
+
+while True:
+    screen.fill([160,255,150])
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+    pygame.display.update()

@@ -64,7 +64,7 @@ class Ball:
         
 
 r = Paddle(250,450,100,30,0,0)
-r2 = Paddle(450,250,30,100,0,0)
+#r2 = Paddle(450,250,30,100,0,0)
 c = Ball(10,20,20)
 while True:
     
@@ -77,19 +77,19 @@ while True:
                 r.change_move(-5,0)
             if event.key == pygame.K_RIGHT:
                 r.change_move(5,0)
-            if event.key == pygame.K_UP:
-                r2.change_move(0,-5)
-            if event.key == pygame.K_DOWN:
-                r2.change_move(0,5)
+            #if event.key == pygame.K_UP:
+                #r2.change_move(0,-5)
+            #if event.key == pygame.K_DOWN:
+                #r2.change_move(0,5)
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
                 r.change_move(0,0)
             if event.key == pygame.K_RIGHT:
                 r.change_move(0,0)
-            if event.key == pygame.K_UP:
-                r2.change_move(0,0)
-            if event.key == pygame.K_DOWN:
-                r2.change_move(0,0)
+            #if event.key == pygame.K_UP:
+                #r2.change_move(0,0)
+            #if event.key == pygame.K_DOWN:
+                #r2.change_move(0,0)
         
     screen.fill((0,0,0))
     r.draw()
@@ -103,11 +103,11 @@ while True:
         if r.lives == 0:
             screen.fill((0,0,0))
 
-    c.collide(r.create_rect(),-1,1)
-    c.collide(r2.invisa_rect(-10),-1,1)
+    c.collide(r.invisa_rect(10),-1,1)
+    #c.collide(r2.invisa_rect(-10),-1,1)
     c.draw()
     r.movement()
-    r2.movement()
+    #r2.movement()
 
 
     time.sleep(0.05)

@@ -1,0 +1,54 @@
+import pygame
+import time
+pygame.init()
+WIDTH = 500
+HEIGHT = 500
+screen =  pygame.display.set_mode([WIDTH,HEIGHT])
+
+colours = [(83, 125, 93),(115, 148, 107),(158, 188, 138),(210, 208, 160),(0,0,0),(0,0,0)]
+
+class User:
+    def __init__(self,x,y,width,height,colour):
+        self.x = x
+        self.y = y
+        self.width = width 
+        self.height = height
+        self.colour = colour 
+        self.change = 0
+    def create_rect(self):
+        self.rec = pygame.Rect(self.x,self.y,self.width,self.height)
+        return self.rec
+    def draw(self):
+        pygame.draw.rect(screen,(self.colour),self.create_rect())
+    def move(self):
+        self.x+=self.change
+    def left(self):
+        self.change = -5
+    def right(self):
+        self.change = 5
+    def stop(self):
+        self.change = 0
+    
+user = User(250,440,59,59,(255,255,255))
+
+while True:
+    screen.fill((0,0,0))
+    user.draw()
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_LEFT:
+                user.left()
+            elif event.key == pygame.K_RIGHT:
+                user.right()
+        elif event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT:
+                user.stop()
+            elif event.key == pygame.K_RIGHT:
+                user.stop()
+    
+    user.move()
+    
+    pygame.display.update()
+    time.sleep(0.15)
