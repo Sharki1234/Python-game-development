@@ -63,7 +63,7 @@ class Ball:
         
         
 
-r = Paddle(250,450,100,30,0,0)
+r = Paddle(250,470,100,30,0,0)
 #r2 = Paddle(450,250,30,100,0,0)
 c = Ball(10,20,20)
 while True:

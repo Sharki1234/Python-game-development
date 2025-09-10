@@ -1,14 +1,18 @@
 import pygame
+import time
 pygame.init()
 screen = pygame.display.set_mode([500,500])
 bg = pygame.image.load("pygame\Rocket Simulation\space.png")
 class Rocket:
-    def __init__(self,x,y,images,angle):
+    def __init__(self,x,y,images,angle,direction):
         self.x = x
         self.y = y
         self.images = images
         self.angle = angle
         self.move = 0
+        #.stop = True
+        self.b = Bullet(self.x,self.y,(0,0,255),direction)
+        self.bullets = []
     def create_rocket(self):
         self.rocket = pygame.image.load(self.images)
         self.rocket = pygame.transform.scale(self.rocket,(50,50))
@@ -17,6 +21,7 @@ class Rocket:
     def draw(self):
         screen.blit(self.create_rocket(),(self.x,self.y))
     def movement(self):
+        #self.stop = False
         self.y+= self.move
     def up(self):
         self.move = -5
@@ -24,9 +29,34 @@ class Rocket:
         self.move = 5
     def stop(self):
         self.move = 0
+    def bullet(self):
+        self.bullets.append(self.b.create())
+    def draw_bullets(self):
+        for self.rect in self.bullets:
+            pygame.draw.rect(screen,(0,255,0),self.rect)
+            self.rect.movement(self.y)
 
-rocket1 = Rocket(50,100,"pygame\Rocket Simulation\spaceship_red.png",90)
-rocket2 = Rocket(400,100,"pygame\Rocket Simulation\spaceship_yellow.png",270)
+
+class Bullet:
+    def __init__(self,x,y,colour,direction):
+        self.colour = colour
+        self.direction = direction
+        self.x = x
+        self.y = y
+    def create(self):
+        self.rect = pygame.Rect((self.x,self.y),(10,10))
+        return self.rect
+    
+    def movement(self,y):
+        self.rect.x+=self.direction
+        self.y = y
+    
+
+        
+
+rocket1 = Rocket(50,100,"pygame\Rocket Simulation\spaceship_red.png",90,5)
+
+rocket2 = Rocket(400,100,"pygame\Rocket Simulation\spaceship_yellow.png",270,-5)
 
 while True:
     screen.blit(bg,(0,0))
@@ -44,6 +74,10 @@ while True:
                 rocket2.up()
             elif event.key == pygame.K_DOWN:
                 rocket2.down()
+            elif event.key == pygame.K_LSHIFT:
+                rocket1.bullet()
+            elif event.key == pygame.K_LALT:
+                rocket2.bullet()
         elif event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
                 rocket1.stop()
@@ -54,5 +88,8 @@ while True:
             elif event.key == pygame.K_DOWN:
                 rocket2.stop()
     rocket1.movement()
+    rocket1.draw_bullets()
     rocket2.movement()
+    rocket2.draw_bullets()
     pygame.display.update()
+    time.sleep(0.005)
