@@ -34,8 +34,12 @@ class Rocket:
     def draw_bullets(self):
         for self.rect in self.bullets:
             pygame.draw.rect(screen,(0,255,0),self.rect)
-            self.rect.movement(self.y)
-
+            self.b.movement(self.y+20,self.rect)
+    def invisa_rect(self):
+        self.width,self.height = self.rocket.get_width(),self.rocket.get_height()
+        self.invisa = pygame.Rect(self.x,self.y,self.width,self.height)
+        return self.invisa
+   
 
 class Bullet:
     def __init__(self,x,y,colour,direction):
@@ -47,8 +51,9 @@ class Bullet:
         self.rect = pygame.Rect((self.x,self.y),(10,10))
         return self.rect
     
-    def movement(self,y):
-        self.rect.x+=self.direction
+    def movement(self,y,rectangle):
+        self.rectangle = rectangle
+        self.rectangle.x+=self.direction
         self.y = y
     
 
@@ -87,6 +92,7 @@ while True:
                 rocket2.stop()
             elif event.key == pygame.K_DOWN:
                 rocket2.stop()
+    
     rocket1.movement()
     rocket1.draw_bullets()
     rocket2.movement()
