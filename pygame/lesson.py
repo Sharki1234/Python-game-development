@@ -3,15 +3,19 @@ import time
 pygame.init()
 screen = pygame.display.set_mode([500,500])
 bg = pygame.image.load("pygame\Rocket Simulation\space.png")
+gun_sound = pygame.mixer.Sound("pygame\Rocket Simulation\Gun+Silencer.mp3")
+collision_sound = pygame.mixer.Sound("pygame\Rocket Simulation\Grenade+1.mp3")
 class Rocket:
-    def __init__(self,x,y,images,angle,direction):
+    def __init__(self,x,y,images,angle,direction,colour):
         self.x = x
         self.y = y
         self.images = images
         self.angle = angle
         self.move = 0
+        self.direction = direction
+        self.colour = colour
         #.stop = True
-        self.b = Bullet(self.x,self.y,(0,0,255),direction)
+        # self.b = Bullet(self.x,self.y,(0,0,255),direction)
         self.bullets = []
     def create_rocket(self):
         self.rocket = pygame.image.load(self.images)
@@ -30,16 +34,28 @@ class Rocket:
     def stop(self):
         self.move = 0
     def bullet(self):
+        self.b = Bullet(self.x,self.y,(0,0,255),self.direction)
         self.bullets.append(self.b.create())
+        gun_sound.play()
     def draw_bullets(self):
-        for self.rect in self.bullets:
-            pygame.draw.rect(screen,(0,255,0),self.rect)
-            self.b.movement(self.y+20,self.rect)
+        for rect in self.bullets:
+            
+            pygame.draw.rect(screen,self.colour,rect)
+            self.b.movement(self.y,rect)
+            if rect.x<=0 or rect.x>=500:
+                self.bullets.remove(rect)
+        
+            
     def invisa_rect(self):
         self.width,self.height = self.rocket.get_width(),self.rocket.get_height()
         self.invisa = pygame.Rect(self.x,self.y,self.width,self.height)
         return self.invisa
-   
+    def check_collision(self,r):
+        
+        for i in self.bullets:
+            if r.colliderect(i):
+                self.bullets.remove(i)
+                collision_sound.play()
 
 class Bullet:
     def __init__(self,x,y,colour,direction):
@@ -59,9 +75,9 @@ class Bullet:
 
         
 
-rocket1 = Rocket(50,100,"pygame\Rocket Simulation\spaceship_red.png",90,5)
+rocket1 = Rocket(50,100,"pygame\Rocket Simulation\spaceship_red.png",90,5,(255,0,0))
 
-rocket2 = Rocket(400,100,"pygame\Rocket Simulation\spaceship_yellow.png",270,-5)
+rocket2 = Rocket(400,100,"pygame\Rocket Simulation\spaceship_yellow.png",270,-5,(255,255,0))
 
 while True:
     screen.blit(bg,(0,0))
@@ -97,5 +113,7 @@ while True:
     rocket1.draw_bullets()
     rocket2.movement()
     rocket2.draw_bullets()
+    rocket1.check_collision(rocket2.invisa_rect())
+    rocket2.check_collision(rocket1.invisa_rect())
     pygame.display.update()
     time.sleep(0.005)
