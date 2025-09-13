@@ -5,6 +5,7 @@ screen = pygame.display.set_mode([500,500])
 bg = pygame.image.load("pygame\Rocket Simulation\space.png")
 gun_sound = pygame.mixer.Sound("pygame\Rocket Simulation\Gun+Silencer.mp3")
 collision_sound = pygame.mixer.Sound("pygame\Rocket Simulation\Grenade+1.mp3")
+
 class Rocket:
     def __init__(self,x,y,images,angle,direction,colour):
         self.x = x
@@ -14,6 +15,8 @@ class Rocket:
         self.move = 0
         self.direction = direction
         self.colour = colour
+        self.score = 0
+        self.lives = 3
         #.stop = True
         # self.b = Bullet(self.x,self.y,(0,0,255),direction)
         self.bullets = []
@@ -38,7 +41,7 @@ class Rocket:
         self.bullets.append(self.b.create())
         gun_sound.play()
     def draw_bullets(self):
-        for rect in self.bullets:
+        for rect in self.bullets[:]:
             
             pygame.draw.rect(screen,self.colour,rect)
             self.b.movement(self.y,rect)
@@ -50,12 +53,33 @@ class Rocket:
         self.width,self.height = self.rocket.get_width(),self.rocket.get_height()
         self.invisa = pygame.Rect(self.x,self.y,self.width,self.height)
         return self.invisa
-    def check_collision(self,r):
+    def check_collision(self,r,otherbullets):
         
-        for i in self.bullets:
+        for i in self.bullets[:]:
             if r.colliderect(i):
+                
                 self.bullets.remove(i)
+                self.score +=1
                 collision_sound.play()
+                otherbullets-=1
+        # my_rect = self.invisa_rect()
+        # for bullet in otherbullets[:]:
+        #     if my_rect.colliderect(bullet):
+        #         #otherbullets.remove(bullet)
+        #         self.lives -= 1
+        #         collision_sound.play()
+
+        
+    def scoreprint(self,left,top):
+        font = pygame.font.SysFont("Arial",20)
+        text = font.render(("score:"+str(self.score)),1,(0,0,0))
+        screen.blit(text,(left,top))
+    def livesprint(self,left,top):
+        font = pygame.font.SysFont("Arial",20)
+        text = font.render(("lives:"+str(self.lives)),1,(0,0,0))
+        screen.blit(text,(left,top))
+                
+            
 
 class Bullet:
     def __init__(self,x,y,colour,direction):
@@ -71,6 +95,8 @@ class Bullet:
         self.rectangle = rectangle
         self.rectangle.x+=self.direction
         self.y = y
+    
+
     
 
         
@@ -108,12 +134,20 @@ while True:
                 rocket2.stop()
             elif event.key == pygame.K_DOWN:
                 rocket2.stop()
-    
+    #pygame.
     rocket1.movement()
     rocket1.draw_bullets()
     rocket2.movement()
     rocket2.draw_bullets()
-    rocket1.check_collision(rocket2.invisa_rect())
-    rocket2.check_collision(rocket1.invisa_rect())
+    rocket2.check_collision(rocket1.invisa_rect(),rocket1.lives)
+    rocket1.check_collision(rocket2.invisa_rect(),rocket2.lives)
+    
+   
+    rocket1.scoreprint(10,10)
+    rocket2.scoreprint(440,10)
+    rocket2.livesprint(440,30)
+    rocket1.livesprint(10,30)
+
+    
     pygame.display.update()
     time.sleep(0.005)
