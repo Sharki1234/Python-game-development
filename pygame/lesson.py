@@ -61,13 +61,12 @@ class Rocket:
                 self.bullets.remove(i)
                 self.score +=1
                 collision_sound.play()
-                otherbullets-=1
-        # my_rect = self.invisa_rect()
-        # for bullet in otherbullets[:]:
-        #     if my_rect.colliderect(bullet):
-        #         #otherbullets.remove(bullet)
-        #         self.lives -= 1
-        #         collision_sound.play()
+        my_rect = self.invisa_rect()
+        for bullet in otherbullets[:]:
+            if my_rect.colliderect(bullet):
+                #otherbullets.remove(bullet)
+                self.lives -= 1
+                collision_sound.play()
 
         
     def scoreprint(self,left,top):
@@ -139,8 +138,8 @@ while True:
     rocket1.draw_bullets()
     rocket2.movement()
     rocket2.draw_bullets()
-    rocket2.check_collision(rocket1.invisa_rect(),rocket1.lives)
-    rocket1.check_collision(rocket2.invisa_rect(),rocket2.lives)
+    rocket2.check_collision(rocket1.invisa_rect(),rocket1.bullets)
+    rocket1.check_collision(rocket2.invisa_rect(),rocket2.bullets)
     
    
     rocket1.scoreprint(10,10)
