@@ -17,7 +17,7 @@ class Bird():
         self.y+=2
         self.x+=2
         if pygame.mouse.get_pressed()[0]:
-            self.y-=10
+            self.y-=6
 
 
     
