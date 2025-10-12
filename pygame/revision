@@ -28,6 +28,22 @@ class User:
         self.change = 5
     def stop(self):
         self.change = 0
+
+class Objects:
+    def __init__(self,x,y,width,height,colour):
+        self.x = x
+        self.y = y
+        self.width = width 
+        self.height = height
+        self.colour = colour 
+        self.change = 5
+        self.recs = []
+    def create_rect(self):
+        self.rec = pygame.Rect(self.x,self.y,self.width,self.height)
+        return self.rec
+    def move(self):
+        self.y -= self.change
+    
     
 user = User(250,440,59,59,(255,255,255))
 

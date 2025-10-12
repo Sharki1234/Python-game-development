@@ -62,12 +62,7 @@ class Rocket:
                 self.score +=1
                 collision_sound.play()
                 r.lives-=1
-        # my_rect = self.invisa_rect()
-        # # for bullet in otherbullets[:]:
-        # #     if my_rect.colliderect(bullet):
-        # #         #otherbullets.remove(bullet)
-        #         self.lives -= 1
-        #         collision_sound.play()
+      
 
         
     def scoreprint(self,left,top):

@@ -3,7 +3,7 @@ import random
 import time
 pygame.init()
 screen = pygame.display.set_mode([500,500])
-bg = pygame.image.load("pygame/images/new_bg.jpg")
+#bg = pygame.image.load("pygame/images/new_bg.jpg")
 score = 0
 
 class Bin(pygame.sprite.Sprite):
@@ -48,8 +48,8 @@ class Recyclable(pygame.sprite.Sprite):
 class Non_recyclable(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load("pygame/images/bagimg.png")
-        self.bag = self.image
+        self.bag = pygame.image.load("pygame/images/bagimg.png")
+        #self.bag = self.image
         self.rect = self.bag.get_rect()
         self.rect.x = random.randint(50,450)
         self.rect.y = random.randint(50,450)
