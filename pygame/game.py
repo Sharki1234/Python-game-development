@@ -41,9 +41,9 @@ class Recs:
         for i in range(3):
             if self.user[i][1] == self.user[i][0] and self.user[i][1] == self.user[i][2] and self.user[i][1] != (255,255,255):
                 print("winner")
-            if self.user[1][1] == self.user[0][0] and self.user[2][2] == self.user[0][0]:
+            if self.user[1][1] == self.user[0][0] and self.user[2][2] == self.user[0][0]  and self.user[0][0] != (255,255,255):
                 print("winner")
-            if self.user[1][1] == self.user[2][0] and self.user[0][2] == self.user[2][0]:
+            if self.user[1][1] == self.user[2][0] and self.user[0][2] == self.user[2][0] and self.user[0][2] != (255,255,255):
                 print("winner")
             for n in range(3):
                 if self.user[i][n] == self.user[i+1][n] and self.user[i+2][n] == self.user[i+1][n] and self.user[i][n] != (255,255,255):
@@ -54,13 +54,13 @@ class Recs:
 recs = Recs(600,600)
 print(recs.create_recs())
         
-running = True
-while running:
+
+while True:
     screen.fill((0, 0, 0))  
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running = False
+            pygame.quit()
         if event.type == pygame.MOUSEBUTTONDOWN:
             recs.change(player_col)
             recs.check()
@@ -71,4 +71,3 @@ while running:
     recs.draw()
     
     pygame.display.update()
-pygame.quit()
