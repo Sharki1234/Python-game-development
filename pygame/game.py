@@ -35,19 +35,26 @@ class Recs:
         pos = pygame.mouse.get_pos()
         for n in range(len(self.rect_list)):
             for i in range(len(self.rect_list[n])):
-                if self.rect_list[n][i].collidepoint(pos):
+                if self.rect_list[n][i].collidepoint(pos) and self.user[n][i] == (255,255,255):
                     self.user[n][i] = colour
+                    return True
+        return False
     def check(self):
         for i in range(3):
-            if self.user[i][1] == self.user[i][0] and self.user[i][1] == self.user[i][2] and self.user[i][1] != (255,255,255):
+            if (self.user[i][1] == self.user[i][0] == self.user[i][2]) and self.user[i][1] != (255,255,255):
                 print("winner")
-            if self.user[1][1] == self.user[0][0] and self.user[2][2] == self.user[0][0]  and self.user[0][0] != (255,255,255):
+                return True
+            # for n in range(3):
+            if (self.user[0][i] == self.user[1][i]==self.user[2][i]) and self.user[0][i] != (255,255,255):
                 print("winner")
-            if self.user[1][1] == self.user[2][0] and self.user[0][2] == self.user[2][0] and self.user[0][2] != (255,255,255):
-                print("winner")
-            for n in range(3):
-                if self.user[i][n] == self.user[i+1][n] and self.user[i+2][n] == self.user[i+1][n] and self.user[i][n] != (255,255,255):
-                    print("winner")
+                return True
+        if self.user[1][1] == self.user[0][0] and self.user[2][2] == self.user[0][0]  and self.user[0][0] != (255,255,255):
+            print("winner")
+            return True
+        if self.user[1][1] == self.user[2][0] and self.user[0][2] == self.user[2][0] and self.user[0][2] != (255,255,255):
+            print("winner")
+            return True
+        return False
             
    
         
@@ -62,12 +69,14 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
         if event.type == pygame.MOUSEBUTTONDOWN:
-            recs.change(player_col)
-            recs.check()
-            if player_col == green:
-                player_col = red
-            else: 
-                player_col = green
+            output1 = recs.change(player_col)
+            output2 = recs.check()
+            print(output1,output2)
+            if not output2 and output1:
+                if player_col == green:
+                    player_col = red
+                else: 
+                    player_col = green
     recs.draw()
     
     pygame.display.update()

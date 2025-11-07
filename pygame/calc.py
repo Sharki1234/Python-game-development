@@ -10,6 +10,7 @@ class Calc:
         self.board()
         self.button_values = [[7,8,9,"/"],[4,5,6,"X"],[3,2,1,"-"],["+",0,"=","AC"]]
         self.equation = []
+        self.num = []
     def board(self):
         gap = 50
         self.answerboard = pygame.Rect((gap),(gap),WIDTH-(gap*2),(gap*3))
@@ -43,7 +44,14 @@ class Calc:
             for n in range(len(self.buttons[i])):
                 if self.buttons[i][n].collidepoint(pos):
                     self.equation.append(self.button_values[i][n])
-                    print(self.button_values[i][n])
+                    if self.equation[-1] == "+" or self.equation[-1] =="/" or self.equation[-1] =="X" or self.equation[-1] == "-" or self.equation[-1] =="=":
+                        self.numb = 0
+                        for i in range(len(self.equation)):
+                            self.numb += self.equation[i]*(10**(len(self.equation)-i))
+                        self.num.append(self.numb)
+                        self.numb = 0
+                        print(self.num)
+           
 calc = Calc()  
 while True:
     screen.fill((165,240,154))
