@@ -1,38 +1,46 @@
-group_names = ["Abnegation","Amnity","Candor","Dauntless","Erudite"]
+import pgzrun
+from random import randint
+WIDTH = 500
+HEIGHT = 500
+TITLE = "INFINITY GAUNTLET HOMEWORK"
 
-group1_details = ("Abnegation","30","6/7/26","Kingston_Academy","Gold")
-group2_details = ("Amnity","30","7/7/26","Tiffin_Girls","Gold")
-group3_details = ("Candor","30","8/7/26","Fern_Hill","Silver")
-group4_details = ("Dauntless","30","9/7/26","Latchmere","Bronze")
-group5_details = ("Erudite","30","10/7/26","St_Lukes","Bronze")
+infinity_gauntlet = Actor("infinity_gauntlet")
+infinity_gauntlet.pos=(randint(0,500),250)
 
-for a in group1_details:
-    print(a,end = " ")
-for b in group2_details:
-    print(b,end = " ")
-for c in group3_details:
-    print(c,end = " ")
-for d in group4_details:
-    print(d,end = " ")
-for e in group5_details:
-    print(e,end = " ")
-print("\n")
-group_name,group_size,competition_date,venue,medal_type =  group1_details
-print("\n") 
-group_name,group_size,competition_date,venue,medal_type =  group2_details
-print("\n") 
-group_name,group_size,competition_date,venue,medal_type =  group3_details
-print("\n") 
-group_name,group_size,competition_date,venue,medal_type =  group4_details 
-print("\n") 
-group_name,group_size,competition_date,venue,medal_type =  group5_details 
+def draw():
+    screen.clear()
+    infinity_gauntlet.draw()
 
-print(group_name)
-print("\n") 
-print(group_size)
-print("\n") 
-print(competition_date)
-print("\n") 
-print(venue)
-print("\n") 
-print(medal_type)
+def update():
+    if keyboard.left:
+        infinity_gauntlet.x=infinity_gauntlet.x-10
+        if infinity_gauntlet.x<=0:
+            infinity_gauntlet.x=0
+    if keyboard.right:
+        infinity_gauntlet.x=infinity_gauntlet.x+10 
+        if infinity_gauntlet.x>=500:
+            infinity_gauntlet.x=500    
+    if keyboard.up:
+        infinity_gauntlet.y=infinity_gauntlet.y-10 
+        if infinity_gauntlet.y>=500:
+            infinity_gauntlet.y=500 
+    if keyboard.down:
+        infinity_gauntlet.y=infinity_gauntlet.y+10 
+        if infinity_gauntlet.y>=500:
+            infinity_gauntlet.y=500              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+pgzrun.go()            
