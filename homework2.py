@@ -1,11 +1,6 @@
-#palindromes
-user = input("word?")
-word = list(user)
-reverse = []
-for i in range(len(word)-1,0,-1):
-  reverse.append(word[i])
-
-if reverse == word:
-  print("palindrome")
-else:
-  print("not palindrome")
+myList = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+target = 1
+if target in myList:
+    print("Found")
+elif target not in myList:
+    print("Not Found")
